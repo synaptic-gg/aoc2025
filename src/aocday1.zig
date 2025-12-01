@@ -7,13 +7,8 @@ pub fn part1() !void {
     for (raw, 0..) |value, i| {
         if (value == '\n' or (value != 'L' and value != 'R')) continue;
         const int = parseToint(raw[i + 1 ..]);
-        if (value == 'L') {
-            start -= int;
-        } else if (value == 'R') {
-            start += int;
-        } else {
-            continue;
-        }
+        const mult: i64 = if (value == 'L') -1 else 1;
+        start += mult * int;
         const val = (@mod(start, 100));
         if (val == 0) {
             count += 1;
@@ -28,7 +23,6 @@ fn parseToint(raw: []const u8) i64 {
         const k: i64 = val - '0';
         i = i * 10 + k;
     }
-
     return i;
 }
 pub fn part2() !void {
@@ -38,22 +32,14 @@ pub fn part2() !void {
     for (raw, 0..) |value, i| {
         if (value == '\n' or (value != 'L' and value != 'R')) continue;
         const int = parseToint(raw[i + 1 ..]);
-        const initil = start;
-        if (value == 'L') {
-            start -= int;
-        } else if (value == 'R') {
-            start += int;
-        }
+        const initial = start;
+        const mult: i64 = if (value == 'L') -1 else 1;
+        start += mult * int;
         const val = @mod(start, 100);
-
         if (val == 0) {
             count += 1;
-        } else if (initil == 0) {} else if (value == 'R') {
-            if (initil > val) {
-                count += 1;
-            }
-        } else if (value == 'L') {
-            if (initil < val) {
+        } else if (initial != 0) {
+            if ((initial > val and mult == 1) or (initial < val and mult == -1)) {
                 count += 1;
             }
         }
