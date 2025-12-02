@@ -8,13 +8,10 @@ pub fn part1() !void {
     while (index < max) {
         const vals = parseInputs(raw[index..]);
         index += vals.next + 1;
-        var pre = vals.prefix;
-        while (pre <= vals.sufix) {
+        for (vals.prefix..vals.sufix + 1) |pre| {
             if (isRep(pre)) {
                 sum += pre;
             }
-
-            pre += 1;
         }
     }
     std.debug.print("part1 {} \n", .{sum});
@@ -94,14 +91,11 @@ pub fn part2() !void {
     while (index < max) {
         const vals = parseInputs(raw[index..]);
         index += vals.next + 1;
-        var pre = vals.prefix;
 
-        while (pre <= vals.sufix) {
+        for (vals.prefix..vals.sufix + 1) |pre| {
             if (isRep2(pre)) {
                 sum += pre;
             }
-
-            pre += 1;
         }
     }
     std.debug.print("part2 {} \n", .{sum});
