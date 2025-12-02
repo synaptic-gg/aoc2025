@@ -62,12 +62,6 @@ fn isRep2(val: usize) bool {
         digits[len] = @intCast(tmp % 10);
         len += 1;
     }
-    for (0..len / 2) |i| {
-        const j = len - 1 - i;
-        const t = digits[i];
-        digits[i] = digits[j];
-        digits[j] = t;
-    }
 
     for (1..len) |d| {
         if (len % d != 0) continue;
