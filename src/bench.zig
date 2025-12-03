@@ -56,10 +56,15 @@ pub fn main() !void {
     var timer = try std.time.Timer.start();
     var i: usize = 0;
     while (i < samples) : (i += 1) {
-        _ = timer.lap();
-        _ = fun_fn(input);
+        _ = std.mem.doNotOptimizeAway(timer.lap());
+        const result_in = fun_fn(input);
         const elapsed = timer.lap();
         results[i] = elapsed;
+        const result_as_string_in = try std.fmt.allocPrint(allocator, "{}", .{result_in});
+        const expected_inner = std.mem.eql(u8, output_trimed, result_as_string_in);
+        if (!expected_inner) {
+            @panic("expected failed in inner block");
+        }
     }
 
     std.mem.sort(u64, results, {}, std.sort.asc(u64));
