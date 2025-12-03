@@ -1,6 +1,6 @@
 const std = @import("std");
 
-pub fn part1() !void {
+pub fn part1() i64 {
     var start: i64 = 50;
     var count: i64 = 0;
     const raw: []const u8 = @embedFile("inputs/1.txt");
@@ -14,7 +14,8 @@ pub fn part1() !void {
             count += 1;
         }
     }
-    std.debug.print("part 1 : {}\n", .{count});
+    //std.debug.print("part 1 : {}\n", .{count});
+    return count;
 }
 fn parseToint(raw: []const u8) i64 {
     var i: i64 = 0;
@@ -25,7 +26,7 @@ fn parseToint(raw: []const u8) i64 {
     }
     return i;
 }
-pub fn part2() !void {
+pub fn part2() i64 {
     var start: i64 = 50;
     var count: i64 = 0;
     const raw: []const u8 = @embedFile("inputs/1.txt");
@@ -46,5 +47,6 @@ pub fn part2() !void {
         count += @divTrunc(int, 100);
         start = val;
     }
-    std.debug.print("part 2 : {}\n", .{count});
+    // std.debug.print("part 2 : {}\n", .{count});
+    return count;
 }

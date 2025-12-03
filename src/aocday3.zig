@@ -1,6 +1,6 @@
 const std = @import("std");
 
-pub fn part1() !void {
+pub fn part1() usize {
     const raw: []const u8 = @embedFile("inputs/3.txt");
     const max = raw.len;
     var index: usize = 0;
@@ -10,7 +10,8 @@ pub fn part1() !void {
         index += vals.next + 1;
         sum += vals.max1 * 10 + vals.max2;
     }
-    std.debug.print("part1 {} \n", .{sum});
+    // std.debug.print("part1 {} \n", .{sum});
+    return sum;
 }
 fn get_line_min_max(raw: []const u8) struct { max1: usize, max2: usize, next: usize } {
     var max1: usize = 0;
@@ -36,14 +37,15 @@ fn get_line_min_max(raw: []const u8) struct { max1: usize, max2: usize, next: us
     }
     return .{ .next = next, .max1 = max1, .max2 = max2 };
 }
-pub fn part2() !void {
+pub fn part2() usize {
     const raw: []const u8 = @embedFile("inputs/3.txt");
     var it = std.mem.splitScalar(u8, raw, '\n');
     var sum: usize = 0;
     while (it.next()) |line| {
         sum += get_jolten(line);
     }
-    std.debug.print("part 2 {}\n", .{sum});
+    //std.debug.print("part 2 {}\n", .{sum});
+    return sum;
 }
 
 fn get_jolten(line: []const u8) usize {

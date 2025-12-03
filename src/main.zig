@@ -4,19 +4,27 @@ const day2 = @import("aocday2.zig");
 const day3 = @import("aocday3.zig");
 
 pub fn main() !void {
-    std.debug.print("day 1\n", .{});
-    try day1.part1();
-    try day1.part2();
-    std.debug.print("day 2\n", .{});
-    try day2.part1();
-    try day2.part2();
-    std.debug.print("day 3\n", .{});
-    try day3.part1();
-    try day3.part2();
+    try runTimed("day1 part 1", day1.part1);
+    try runTimed("day1 part 2", day1.part2);
+    try runTimed("day2 part 1", day2.part1);
+    try runTimed("day2 part 2", day2.part2);
+    try runTimed("day3 part 1", day3.part1);
+    try runTimed("day3 part 2", day3.part2);
+}
 
-    // var stdout_buffer: [1024]u8 = undefined;
-    // var stdout_writer = std.fs.File.stdout().writer(&stdout_buffer);
-    // const stdout = &stdout_writer.interface;
-    // try stdout.print("{}\n", .{});
-    // try stdout.flush();
+fn runTimed(comptime label: []const u8, func: anytype) !void {
+    var stdout_buffer: [1024]u8 = undefined;
+    var stdout_writer = std.fs.File.stdout().writer(&stdout_buffer);
+    const stdout = &stdout_writer.interface;
+
+    const start = std.time.Instant.now() catch unreachable;
+
+    const result = func();
+
+    const end = std.time.Instant.now() catch unreachable;
+
+    const elapsed_ns = end.since(start);
+
+    try stdout.print("{s}: result = {any}, time = {d}µs\n", .{ label, result, elapsed_ns / 1_000 });
+    try stdout.flush();
 }

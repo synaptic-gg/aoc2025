@@ -1,7 +1,7 @@
 const std = @import("std");
 
-pub fn part1() !void {
-    const raw: []const u8 = @embedFile("inputs/2.txt.d");
+pub fn part1() usize {
+    const raw: []const u8 = @embedFile("inputs/2.txt");
     const max = raw.len;
     var index: usize = 0;
     var sum: usize = 0;
@@ -10,7 +10,8 @@ pub fn part1() !void {
         index += vals.next + 1;
         sum += get_sum(vals.prefix, vals.sufix);
     }
-    std.debug.print("part1 {} \n", .{sum});
+    // std.debug.print("part1 {} \n", .{sum});
+    return sum;
 }
 fn isRep(val: usize) bool {
     const len: usize = std.math.log10(val) + 1;
@@ -123,7 +124,7 @@ fn isRep2(val: usize) bool {
 
     return false;
 }
-pub fn part2() !void {
+pub fn part2() usize {
     const raw: []const u8 = @embedFile("inputs/2.txt");
     const max = raw.len;
     var index: usize = 0;
@@ -133,7 +134,8 @@ pub fn part2() !void {
         index += vals.next + 1;
         sum += get_sum_part2(vals.prefix, vals.sufix);
     }
-    std.debug.print("part2 {} \n", .{sum});
+    // std.debug.print("part2 {} \n", .{sum});
+    return sum;
 }
 
 fn get_sum_part2(pre: usize, suf: usize) usize {
