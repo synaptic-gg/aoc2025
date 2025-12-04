@@ -1,7 +1,7 @@
 const std = @import("std");
 
 pub fn part1() usize {
-    const raw: []const u8 = @embedFile("inputs/2.txt");
+    const raw: []const u8 = @embedFile("inputs/2.txt.d");
     const max = raw.len;
     var index: usize = 0;
     var sum: usize = 0;
@@ -38,20 +38,14 @@ fn get_sum(pre: usize, suf: usize) usize {
         return 0;
     }
     const multiplyer = get_part1_divs(len_prefix);
-    var sum: usize = 0;
 
     if (multiplyer == 0) {
         return 0;
     }
-    var start = (pre / multiplyer);
-    while (multiplyer * start <= suf) {
-        const val = multiplyer * start;
-        if (val >= pre) {
-            sum += val;
-        }
-        start += 1;
-    }
-    return sum;
+    const start = (pre - 1) / multiplyer;
+    const end = (suf + 1) / multiplyer;
+    const diff = end - start;
+    return diff * (2 * start + diff + 1) * multiplyer / 2;
 }
 fn is_rep_op(val: usize) bool {
     const len: usize = std.math.log10(val) + 1;

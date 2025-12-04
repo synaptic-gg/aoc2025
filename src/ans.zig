@@ -1,4 +1,4 @@
-pub fn solve(raw: []const u8) i64 {
+pub fn solve(raw: []u8) i64 {
     var start: i64 = 50;
     var count: i64 = 0;
     // const raw: []const u8 = @embedFile("inputs/1.txt");

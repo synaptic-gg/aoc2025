@@ -11,10 +11,12 @@ pub fn main() !void {
         .day = try std.fmt.parseInt(usize, day_str, 10),
         .part = try std.fmt.parseInt(usize, part_str, 10),
     };
+
     const allocator = std.heap.page_allocator;
     var stdout_buffer: [1024 * 8]u8 = undefined;
     var stdout_writer = std.fs.File.stdout().writer(&stdout_buffer);
     const stdout = &stdout_writer.interface;
+    defer stdout.flush() catch unreachable;
 
     const file_path_input = try std.fmt.allocPrint(allocator, "/Users/yash/projects/aoc2025/src/inputs/{}.txt", .{context.day});
     const file_path_output = try std.fmt.allocPrint(allocator, "/Users/yash/projects/aoc2025/src/part{}_outputs/{}.txt", .{ context.part, context.day });
@@ -75,6 +77,5 @@ pub fn main() !void {
     defer writer.deinit();
     const json = try writer.toOwnedSlice();
     try stdout.print("{s}\n", .{json});
-    try stdout.flush();
     return;
 }
