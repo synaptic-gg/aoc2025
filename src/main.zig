@@ -3,6 +3,7 @@ const day1 = @import("aocday1.zig");
 const day2 = @import("aocday2.zig");
 const day3 = @import("aocday3.zig");
 const day4 = @import("aocday4.zig");
+const day5 = @import("aocday5.zig");
 
 pub fn main() !void {
     try runTimed("day1 part 1", day1.part1);
@@ -13,6 +14,8 @@ pub fn main() !void {
     try runTimed("day3 part 2", day3.part2);
     try runTimed("day4 part 1", day4.part1);
     try runTimed("day4 part 2", day4.part2);
+    try runTimed("day5 part 1", day5.part1);
+    try runTimed("day5 part 2", day5.part2);
 }
 
 fn runTimed(comptime label: []const u8, func: anytype) !void {
